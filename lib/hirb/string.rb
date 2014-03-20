@@ -1,8 +1,10 @@
+# encoding: utf-8
 module Hirb
   # Provides string helpers to deal with UTF-8 and ruby 1.8.x
   module String
     extend self
     # :stopdoc:
+    SPACECHAR = '_'
     if RUBY_VERSION < '1.9'
       def size(string)
         string.scan(/./).length
@@ -10,12 +12,12 @@ module Hirb
 
       def ljust(string, desired_length)
         leftover = desired_length - size(string)
-        leftover > 0 ? string + " " * leftover : string
+        leftover > 0 ? string + SPACECHAR * leftover : string
       end
 
       def rjust(string, desired_length)
         leftover = desired_length - size(string)
-        leftover > 0 ? " " * leftover + string : string
+        leftover > 0 ? SPACECHAR * leftover + string : string
       end
 
       def slice(string, start, finish)
@@ -27,11 +29,11 @@ module Hirb
       end
 
       def ljust(string, desired_length)
-        string.ljust(desired_length)
+        string.ljust(desired_length, SPACECHAR)
       end
 
       def rjust(string, desired_length)
-        string.rjust(desired_length)
+        string.rjust(desired_length, SPACECHAR)
       end
 
       def slice(*args)
